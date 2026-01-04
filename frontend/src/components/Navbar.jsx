@@ -10,6 +10,8 @@ const Navbar = () => {
     localStorage.removeItem("user");
     navigate("/login");
   };
+  {user && <Link to="/my-orders">My Orders</Link>}
+
 
   return (
     <nav style={styles.nav}>

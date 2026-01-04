@@ -1,102 +1,54 @@
-import { useEffect, useState } from "react";
-import {
-  getCart,
-  removeFromCart,
-  updateQty,
-} from "../utils/cartUtils";
-import axios from "axios";
+import { createRazorpayOrder, verifyPayment } from "../api/paymentApi";
 
+function Cart() {
+  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
-const Cart = () => {
-  const [cart, setCart] = useState([]);
-
-  useEffect(() => {
-    setCart(getCart());
-  }, []);
-
-  const updateQuantity = (id, qty) => {
-    if (qty < 1) return;
-    updateQty(id, qty);
-    setCart(getCart());
-  };
-
-  const removeItem = (id) => {
-    removeFromCart(id);
-    setCart(getCart());
-  };
-  const placeOrder = async () => {
-  const token = localStorage.getItem("token");
-
-  if (!token) {
-    alert("Please login first");
-    return;
-  }
-
-  try {
-    await axios.post(
-      "http://127.0.0.1:4000/api/orders",
-      {
-        orderItems: cart,
-        totalPrice,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    localStorage.removeItem("cart");
-    alert("Order placed successfully ✅");
-    window.location.href = "/";
-  } catch (error) {
-    alert("Order failed");
-  }
-};
-
-
-  const totalPrice = cart.reduce(
-    (acc, item) => acc + item.price * item.qty,
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + item.price * item.qty,
     0
   );
 
+  const handlePayment = async () => {
+    try {
+      const { razorpayOrder } = await createRazorpayOrder(totalPrice);
+
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: razorpayOrder.amount,
+        currency: "INR",
+        name: "Cravory",
+        description: "Order Payment",
+        order_id: razorpayOrder.id,
+
+        handler: async (response) => {
+          await verifyPayment({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            orderId: razorpayOrder.id,
+          });
+
+          alert("Payment Successful 🎉");
+          localStorage.removeItem("cart");
+          window.location.href = "/order-success";
+        },
+      };
+
+      const razor = new window.Razorpay(options);
+      razor.open();
+    } catch (error) {
+      alert("Payment failed");
+      console.error(error);
+    }
+  };
+
   return (
-    <div style={{ padding: "20px" }}>
+    <div>
       <h2>Cart</h2>
-
-      {cart.length === 0 && <p>Your cart is empty</p>}
-
-      {cart.map((item) => (
-        <div
-          key={item._id}
-          style={{
-            borderBottom: "1px solid #ccc",
-            marginBottom: "10px",
-          }}
-        >
-          <h4>{item.name}</h4>
-          <p>₹{item.price}</p>
-
-          <button onClick={() => updateQuantity(item._id, item.qty - 1)}>
-            -
-          </button>
-          <span style={{ margin: "0 10px" }}>{item.qty}</span>
-          <button onClick={() => updateQuantity(item._id, item.qty + 1)}>
-            +
-          </button>
-
-          <button
-            style={{ marginLeft: "10px", color: "red" }}
-            onClick={() => removeItem(item._id)}
-          >
-            Remove
-          </button>
-        </div>
-      ))}
-
       <h3>Total: ₹{totalPrice}</h3>
+      <button onClick={handlePayment}>Pay Now</button>
     </div>
   );
-};
+}
 
 export default Cart;
