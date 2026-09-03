@@ -69,7 +69,7 @@ Artisan bakeries and niche dessert craftsmen often struggle to compete with larg
 - **Customer & User Management**: View registered user directory, manage user roles, and toggle user active status (`isActive`).
 - **Product Catalog Moderation**: System-wide view of all published products with instant availability toggles (`isAvailable`).
 - **Order Monitoring**: Global view of all marketplace orders, filterable by payment and fulfillment state.
-- **Coupon Management**: Create, edit, activate, and deactivate marketplace discount coupons (percentage or flat discount type, minimum purchase requirement, and expiration date).
+- **Coupon Management**: Create and deactivate marketplace discount coupons (percentage or fixed discount type, minimum purchase requirement, maximum discount cap, per-user limit, and expiration date).
 
 ### 💳 Payments
 - **Razorpay Payment Integration**: Integrated server-side Razorpay Order API creation and frontend Razorpay Checkout SDK trigger.
