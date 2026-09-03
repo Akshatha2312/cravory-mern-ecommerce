@@ -1,0 +1,489 @@
+/* ==========================================================================
+   CRAVORY GLOBAL UI DESIGN SYSTEM & RESPONSIVE UX POLISH (PHASE 12)
+   Artisan Bakery & Dessert Marketplace Visual Design System
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. DESIGN TOKENS & CENTRALIZED COLOR PALETTE
+   -------------------------------------------------------------------------- */
+:root {
+  /* Brand Primary: Rich Berry / Raspberry / Strawberry */
+  --cravory-primary: #c2185b;
+  --cravory-primary-hover: #ad1457;
+  --cravory-primary-active: #880e4f;
+  --cravory-primary-light: #f8bbd0;
+  --cravory-primary-bg: #fce4ec;
+  --cravory-primary-gradient: linear-gradient(135deg, #d81b60 0%, #c2185b 50%, #ad1457 100%);
+  --cravory-primary-shadow: rgba(194, 24, 91, 0.28);
+
+  /* Supporting Bakery Palette */
+  --cravory-bg: #fffdfa;                     /* Warm Cream Background */
+  --cravory-surface: #ffffff;                /* Pure White Surface */
+  --cravory-surface-secondary: #fdf8f3;      /* Soft Bakery Surface */
+  --cravory-surface-tertiary: #f7ede2;       /* Warm Biscuit Surface */
+  --cravory-surface-border: #f0e6df;         /* Subtle Border Tone */
+  --cravory-surface-border-strong: #d7ccc8;  /* Strong Border Tone */
+
+  /* Neutral Cocoa / Chocolate Typography Tones */
+  --cravory-cocoa: #3e2723;                  /* Deep Cocoa */
+  --cravory-text: #2c1d11;                   /* Primary Dark Espresso Text */
+  --cravory-text-secondary: #6d5a4d;         /* Secondary Warm Cocoa Text */
+  --cravory-text-tertiary: #9e8b7d;          /* Muted Caption Text */
+  --cravory-text-inverse: #ffffff;          /* White Text on Primary */
+
+  /* Supporting Accents */
+  --cravory-peach: #ffe0b2;
+  --cravory-peach-bg: #fff3e0;
+  --cravory-orange: #f57c00;
+  --cravory-yellow: #fbc02d;
+
+  /* Semantic Feedback Colors */
+  --cravory-success: #2e7d32;
+  --cravory-success-bg: #e8f5e9;
+  --cravory-success-border: #c8e6c9;
+
+  --cravory-warning: #ed6c02;
+  --cravory-warning-bg: #fff4e5;
+
+  --cravory-danger: #d32f2f;
+  --cravory-danger-bg: #ffebee;
+  --cravory-danger-border: #ffcdd2;
+
+  --cravory-info: #0288d1;
+  --cravory-info-bg: #e0f7fa;
+
+  /* Typography Tokens */
+  --cravory-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --cravory-font-display: 'Outfit', 'Inter', sans-serif;
+
+  /* Layout Widths */
+  --cravory-container-max: 1240px;
+
+  /* Radii */
+  --cravory-radius-sm: 8px;
+  --cravory-radius-md: 12px;
+  --cravory-radius-lg: 16px;
+  --cravory-radius-xl: 24px;
+  --cravory-radius-full: 9999px;
+
+  /* Shadows */
+  --cravory-shadow-xs: 0 2px 4px rgba(62, 39, 35, 0.04);
+  --cravory-shadow-sm: 0 4px 10px rgba(62, 39, 35, 0.06);
+  --cravory-shadow-md: 0 8px 20px rgba(62, 39, 35, 0.08);
+  --cravory-shadow-lg: 0 14px 32px rgba(62, 39, 35, 0.12);
+  --cravory-shadow-hover: 0 12px 28px rgba(194, 24, 91, 0.2);
+
+  /* Micro-interactions & Transitions */
+  --cravory-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --cravory-transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. GLOBAL RESETS & BASE TYPOGRAPHY
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--cravory-font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  color-scheme: light;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--cravory-bg);
+  color: var(--cravory-text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--cravory-font-display);
+  color: var(--cravory-cocoa);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--cravory-text-secondary);
+}
+
+a {
+  color: var(--cravory-primary);
+  text-decoration: none;
+  transition: color var(--cravory-transition-fast);
+}
+
+a:hover {
+  color: var(--cravory-primary-hover);
+}
+
+/* --------------------------------------------------------------------------
+   3. CONTAINER & LAYOUT SYSTEM
+   -------------------------------------------------------------------------- */
+.cravory-container {
+  width: 100%;
+  max-width: var(--cravory-container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   4. CRAVORY BUTTON COMPONENT SYSTEM
+   -------------------------------------------------------------------------- */
+button.cravory-btn,
+a.cravory-btn,
+.cravory-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  padding: 10px 20px !important;
+  font-family: var(--cravory-font-sans) !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
+  border-radius: var(--cravory-radius-md) !important;
+  border: 1.5px solid transparent !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  user-select: none !important;
+  text-decoration: none !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: var(--cravory-shadow-xs) !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+button.cravory-btn:focus-visible,
+a.cravory-btn:focus-visible,
+.cravory-btn:focus-visible {
+  outline: 3px solid var(--cravory-primary-light) !important;
+  outline-offset: 2px !important;
+}
+
+/* Primary Berry Button */
+button.cravory-btn-primary,
+a.cravory-btn-primary,
+.cravory-btn-primary {
+  background: var(--cravory-primary-gradient) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 14px var(--cravory-primary-shadow) !important;
+}
+
+button.cravory-btn-primary:hover:not(:disabled),
+a.cravory-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ad1457 0%, #880e4f 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px var(--cravory-primary-shadow) !important;
+  transform: translateY(-2px) !important;
+}
+
+button.cravory-btn-primary:active:not(:disabled),
+a.cravory-btn-primary:active:not(:disabled) {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 6px var(--cravory-primary-shadow) !important;
+}
+
+/* Secondary Button (Warm Bakery Surface) */
+button.cravory-btn-secondary,
+a.cravory-btn-secondary,
+.cravory-btn-secondary {
+  background-color: #ffffff !important;
+  color: var(--cravory-cocoa) !important;
+  border-color: var(--cravory-surface-border-strong) !important;
+}
+
+button.cravory-btn-secondary:hover:not(:disabled),
+a.cravory-btn-secondary:hover:not(:disabled) {
+  background-color: var(--cravory-surface-secondary) !important;
+  color: var(--cravory-primary) !important;
+  border-color: var(--cravory-primary-light) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Small Button Variant */
+button.cravory-btn-sm,
+a.cravory-btn-sm,
+.cravory-btn-sm {
+  padding: 6px 14px !important;
+  font-size: 0.825rem !important;
+  border-radius: var(--cravory-radius-sm) !important;
+}
+
+/* Large Button Variant */
+button.cravory-btn-lg,
+a.cravory-btn-lg,
+.cravory-btn-lg {
+  padding: 12px 26px !important;
+  font-size: 0.95rem !important;
+  border-radius: var(--cravory-radius-md) !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. CATEGORY CHIPS
+   -------------------------------------------------------------------------- */
+button.cravory-chip,
+.cravory-chip {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 8px 18px !important;
+  font-family: var(--cravory-font-sans) !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  border-radius: var(--cravory-radius-full) !important;
+  background-color: #ffffff !important;
+  color: var(--cravory-cocoa) !important;
+  border: 1.5px solid var(--cravory-surface-border) !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 6px rgba(62, 39, 35, 0.04) !important;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+button.cravory-chip:hover,
+.cravory-chip:hover {
+  background-color: var(--cravory-primary-bg) !important;
+  color: var(--cravory-primary) !important;
+  border-color: var(--cravory-primary-light) !important;
+  transform: translateY(-1px) !important;
+}
+
+button.cravory-chip.active,
+.cravory-chip.active {
+  background: var(--cravory-primary-gradient) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 12px var(--cravory-primary-shadow) !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. FORM INPUTS & SELECT DROPDOWNS
+   -------------------------------------------------------------------------- */
+select.cravory-select,
+.cravory-select {
+  width: 100% !important;
+  padding: 10px 14px !important;
+  font-family: var(--cravory-font-sans) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: var(--cravory-cocoa) !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid var(--cravory-surface-border) !important;
+  border-radius: var(--cravory-radius-md) !important;
+  box-shadow: 0 2px 6px rgba(62, 39, 35, 0.04) !important;
+  cursor: pointer !important;
+  outline: none !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  appearance: auto !important;
+}
+
+select.cravory-select:focus,
+.cravory-select:focus {
+  border-color: var(--cravory-primary) !important;
+  box-shadow: 0 0 0 3px var(--cravory-primary-bg) !important;
+}
+
+input.cravory-input,
+.cravory-input {
+  width: 100% !important;
+  padding: 10px 14px !important;
+  font-family: var(--cravory-font-sans) !important;
+  font-size: 0.875rem !important;
+  color: var(--cravory-text) !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid var(--cravory-surface-border) !important;
+  border-radius: var(--cravory-radius-md) !important;
+  outline: none !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+input.cravory-input:focus,
+.cravory-input:focus,
+textarea.cravory-textarea:focus,
+.cravory-textarea:focus {
+  border-color: var(--cravory-primary) !important;
+  box-shadow: 0 0 0 3px var(--cravory-primary-bg) !important;
+}
+
+textarea.cravory-textarea,
+.cravory-textarea {
+  width: 100% !important;
+  padding: 10px 14px !important;
+  font-family: var(--cravory-font-sans) !important;
+  font-size: 0.875rem !important;
+  color: var(--cravory-text) !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid var(--cravory-surface-border) !important;
+  border-radius: var(--cravory-radius-md) !important;
+  outline: none !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  resize: vertical !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. CARDS & SURFACES
+   -------------------------------------------------------------------------- */
+.cravory-card-interactive {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+.cravory-card-interactive:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: var(--cravory-shadow-hover) !important;
+  border-color: var(--cravory-primary-light) !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. BADGES & CHIPS
+   -------------------------------------------------------------------------- */
+.cravory-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: var(--cravory-radius-full);
+  letter-spacing: 0.02em;
+}
+
+.cravory-badge-primary {
+  background-color: var(--cravory-primary-bg);
+  color: var(--cravory-primary);
+  border: 1px solid var(--cravory-primary-light);
+}
+
+.cravory-badge-secondary {
+  background-color: var(--cravory-surface-tertiary);
+  color: var(--cravory-text-secondary);
+  border: 1px solid var(--cravory-surface-border);
+}
+
+/* --------------------------------------------------------------------------
+   9. SKELETON & EMPTY STATES
+   -------------------------------------------------------------------------- */
+.cravory-skeleton {
+  background: linear-gradient(90deg, #f0e6df 25%, #f7ede2 50%, #f0e6df 75%);
+  background-size: 200% 100%;
+  animation: cravory-shimmer 1.5s infinite;
+  border-radius: var(--cravory-radius-md);
+}
+
+@keyframes cravory-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.cravory-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  background-color: var(--cravory-surface);
+  border-radius: var(--cravory-radius-lg);
+  border: 1.5px dashed var(--cravory-surface-border-strong);
+}
+
+.cravory-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.cravory-error-state {
+  padding: 16px;
+  background-color: var(--cravory-danger-bg);
+  border: 1px solid var(--cravory-danger-border);
+  border-radius: var(--cravory-radius-md);
+  color: var(--cravory-danger);
+  font-size: 0.875rem;
+}
+
+/* --------------------------------------------------------------------------
+   10. RESPONSIVE BREAKPOINTS & MOBILE UX POLISH
+   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+  .cravory-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Prevent table overflow on small screens with smooth container scroll */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Responsive image scaling */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Ensure touch targets meet minimum 44px height for accessibility */
+  button.cravory-btn,
+  a.cravory-btn,
+  .cravory-btn {
+    min-height: 44px;
+  }
+
+  /* Stack Baker Sidebar layout smoothly on mobile screens */
+  div[style*="grid-template-columns: 260px 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .cravory-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  h1 {
+    font-size: 1.6rem !important;
+  }
+
+  h2 {
+    font-size: 1.3rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
