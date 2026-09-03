@@ -1,4 +1,5 @@
 import Order from "../models/Order.js";
+<<<<<<< HEAD
 import Product from "../models/Product.js";
 import Coupon from "../models/Coupon.js";
 import { validateCouponHelper } from "./couponController.js";
@@ -6,11 +7,17 @@ import mongoose from "mongoose";
 
 /**
  * @desc   Create new order with server-calculated prices, stock validation, and coupon processing
+=======
+
+/**
+ * @desc   Create new order
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
  * @route  POST /api/orders
  * @access Private
  */
 export const createOrder = async (req, res) => {
   try {
+<<<<<<< HEAD
     const { orderItems, shippingAddress, couponCode } = req.body;
 
     if (!orderItems || !Array.isArray(orderItems) || orderItems.length === 0) {
@@ -126,15 +133,31 @@ export const createOrder = async (req, res) => {
       coupon: appliedCoupon,
       totalPrice: finalTotal,
       shippingAddress: addressSnapshot,
+=======
+    const { orderItems, totalPrice } = req.body;
+
+    if (!orderItems || orderItems.length === 0) {
+      return res.status(400).json({ message: "No order items" });
+    }
+
+    const order = await Order.create({
+      user: req.user._id,
+      orderItems,
+      totalPrice,
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
       isPaid: false,
     });
 
     res.status(201).json(order);
   } catch (error) {
+<<<<<<< HEAD
     res.status(500).json({
       message: "Order creation failed",
       error: error.message,
     });
+=======
+    res.status(500).json({ message: "Order creation failed" });
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
   }
 };
 
@@ -144,6 +167,7 @@ export const createOrder = async (req, res) => {
  * @access Private
  */
 export const getMyOrders = async (req, res) => {
+<<<<<<< HEAD
   try {
     const orders = await Order.find({ user: req.user._id })
       .populate({
@@ -405,6 +429,12 @@ export const updateVendorOrderStatus = async (req, res) => {
       error: error.message,
     });
   }
+=======
+  const orders = await Order.find({ user: req.user._id }).sort({
+    createdAt: -1,
+  });
+  res.json(orders);
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 };
 
 /**
@@ -413,6 +443,7 @@ export const updateVendorOrderStatus = async (req, res) => {
  * @access Admin
  */
 export const getAllOrders = async (req, res) => {
+<<<<<<< HEAD
   try {
     const orders = await Order.find()
       .populate("user", "name email")
@@ -422,6 +453,13 @@ export const getAllOrders = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch orders", error: error.message });
   }
+=======
+  const orders = await Order.find()
+    .populate("user", "name email")
+    .sort({ createdAt: -1 });
+
+  res.json(orders);
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 };
 
 /**
@@ -430,6 +468,7 @@ export const getAllOrders = async (req, res) => {
  * @access Admin
  */
 export const markOrderDelivered = async (req, res) => {
+<<<<<<< HEAD
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: "Invalid order ID" });
@@ -449,4 +488,17 @@ export const markOrderDelivered = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Failed to update order", error: error.message });
   }
+=======
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    return res.status(404).json({ message: "Order not found" });
+  }
+
+  order.isDelivered = true;
+  order.deliveredAt = Date.now();
+  await order.save();
+
+  res.json({ message: "Order delivered" });
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 };

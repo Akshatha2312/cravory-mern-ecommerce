@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import { getMyOrders } from "../api/orderApi";
 import { createRazorpayOrder, verifyPayment, reportPaymentFailure } from "../api/paymentApi";
@@ -8,6 +9,12 @@ function MyOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+=======
+import { getMyOrders } from "../api/orderApi";
+
+function MyOrders() {
+  const [orders, setOrders] = useState([]);
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
   useEffect(() => {
     loadOrders();
@@ -15,6 +22,7 @@ function MyOrders() {
 
   const loadOrders = async () => {
     try {
+<<<<<<< HEAD
       setLoading(true);
       const data = await getMyOrders();
       setOrders(data || []);
@@ -351,10 +359,47 @@ function MyOrders() {
           })}
         </div>
       )}
+=======
+      const data = await getMyOrders();
+      setOrders(data);
+    } catch (error) {
+      alert("Failed to load orders");
+    }
+  };
+
+  if (orders.length === 0) {
+    return <h3>No orders found</h3>;
+  }
+
+  return (
+    <div>
+      <h2>My Orders</h2>
+
+      {orders.map((order) => (
+        <div
+          key={order._id}
+          style={{
+            border: "1px solid #ccc",
+            marginBottom: "15px",
+            padding: "10px",
+          }}
+        >
+          <p><b>Order ID:</b> {order._id}</p>
+          <p><b>Total:</b> ₹{order.totalPrice}</p>
+          <p><b>Paid:</b> {order.isPaid ? "Yes ✅" : "No ❌"}</p>
+          <p><b>Delivered:</b> {order.isDelivered ? "Yes 🚚" : "Pending ⏳"}</p>
+          <p>
+            <b>Date:</b>{" "}
+            {new Date(order.createdAt).toLocaleDateString()}
+          </p>
+        </div>
+      ))}
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     </div>
   );
 }
 
+<<<<<<< HEAD
 const styles = {
   headerBanner: {
     backgroundColor: "#fff8f5",
@@ -479,4 +524,6 @@ const styles = {
   },
 };
 
+=======
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 export default MyOrders;

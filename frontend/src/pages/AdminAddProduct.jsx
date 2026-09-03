@@ -1,8 +1,12 @@
 import { useState } from "react";
+<<<<<<< HEAD
 import { Link, useNavigate } from "react-router-dom";
 import { addProduct, uploadProductImage } from "../api/productApi";
 import PRODUCT_CATEGORIES from "../utils/categories";
 import AdminNav from "../components/AdminNav";
+=======
+import axios from "axios";
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
 const AdminAddProduct = () => {
   const [form, setForm] = useState({
@@ -12,6 +16,7 @@ const AdminAddProduct = () => {
     category: "",
     stock: "",
   });
+<<<<<<< HEAD
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,11 +24,14 @@ const AdminAddProduct = () => {
   const [errorMsg, setErrorMsg] = useState("");
 
   const navigate = useNavigate();
+=======
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+<<<<<<< HEAD
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
@@ -61,6 +69,25 @@ const AdminAddProduct = () => {
       }
 
       setMessage("Product added successfully! 🎉");
+=======
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const token = localStorage.getItem("token");
+
+      await axios.post(
+        "http://127.0.0.1:4000/api/products/add-product",
+        form,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      alert("Product added successfully ✅");
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
       setForm({
         name: "",
@@ -69,6 +96,7 @@ const AdminAddProduct = () => {
         category: "",
         stock: "",
       });
+<<<<<<< HEAD
       setImageFile(null);
       setImagePreview("");
 
@@ -80,10 +108,15 @@ const AdminAddProduct = () => {
       setErrorMsg(error.response?.data?.message || "Failed to add product");
     } finally {
       setLoading(false);
+=======
+    } catch (error) {
+      alert(error.response?.data?.message || "Failed to add product");
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     }
   };
 
   return (
+<<<<<<< HEAD
     <div>
       <AdminNav />
 
@@ -222,10 +255,60 @@ const AdminAddProduct = () => {
           </form>
         </div>
       </div>
+=======
+    <div style={{ maxWidth: "500px", margin: "30px auto" }}>
+      <h2>Add Product (Admin)</h2>
+
+      <form onSubmit={submitHandler}>
+        <input
+          name="name"
+          placeholder="Product Name"
+          value={form.name}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          name="description"
+          placeholder="Description"
+          value={form.description}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="number"
+          name="price"
+          placeholder="Price"
+          value={form.price}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          name="category"
+          placeholder="Category"
+          value={form.category}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="number"
+          name="stock"
+          placeholder="Stock"
+          value={form.stock}
+          onChange={handleChange}
+        />
+
+        <button type="submit">Add Product</button>
+      </form>
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     </div>
   );
 };
 
+<<<<<<< HEAD
 const styles = {
   card: {
     backgroundColor: "#ffffff",
@@ -257,4 +340,6 @@ const styles = {
   },
 };
 
+=======
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 export default AdminAddProduct;

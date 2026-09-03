@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
+<<<<<<< HEAD
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:4000/api",
 });
 
@@ -24,5 +25,17 @@ API.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+=======
+  baseURL: "http://localhost:4000",
+});
+
+API.interceptors.request.use((req) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    req.headers.Authorization = `Bearer ${token}`;
+  }
+  return req;
+});
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
 export default API;

@@ -1,5 +1,8 @@
 import Product from "../models/Product.js";
+<<<<<<< HEAD
 import mongoose from "mongoose";
+=======
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
 /**
  * @desc   Add new product (Admin only)
@@ -19,9 +22,15 @@ export const addProduct = async (req, res) => {
     const product = await Product.create({
       name,
       description,
+<<<<<<< HEAD
       price: Number(price),
       category,
       stock: stock ? Number(stock) : 0,
+=======
+      price,
+      category,
+      stock: stock || 0,
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
       createdBy: req.user._id,
     });
 
@@ -38,12 +47,17 @@ export const addProduct = async (req, res) => {
 };
 
 /**
+<<<<<<< HEAD
  * @desc   Get all products (Public Marketplace)
+=======
+ * @desc   Get all products
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
  * @route  GET /api/products
  * @access Public
  */
 export const getAllProducts = async (req, res) => {
   try {
+<<<<<<< HEAD
     const products = await Product.find()
       .populate("vendor", "_id bakeryName logo coverImage city state isApproved isActive")
       .sort({ createdAt: -1 });
@@ -101,6 +115,9 @@ export const getVendorPublicProducts = async (req, res) => {
     })
       .populate("vendor", "_id bakeryName logo coverImage city state isApproved isActive")
       .sort({ createdAt: -1 });
+=======
+    const products = await Product.find().sort({ createdAt: -1 });
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
     res.status(200).json({
       count: products.length,
@@ -108,7 +125,11 @@ export const getVendorPublicProducts = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({
+<<<<<<< HEAD
       message: "Failed to fetch bakery products",
+=======
+      message: "Failed to fetch products",
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
       error: error.message,
     });
   }
@@ -121,6 +142,7 @@ export const getVendorPublicProducts = async (req, res) => {
  */
 export const getProductById = async (req, res) => {
   try {
+<<<<<<< HEAD
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: "Invalid product ID" });
     }
@@ -129,6 +151,9 @@ export const getProductById = async (req, res) => {
       "vendor",
       "_id bakeryName logo coverImage city state isApproved isActive"
     );
+=======
+    const product = await Product.findById(req.params.id);
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
     if (!product) {
       return res.status(404).json({
@@ -136,6 +161,7 @@ export const getProductById = async (req, res) => {
       });
     }
 
+<<<<<<< HEAD
     // If product belongs to a vendor, enforce approved & active vendor checks
     if (product.vendor && typeof product.vendor === "object") {
       if (product.vendor.isApproved === false || product.vendor.isActive === false) {
@@ -145,6 +171,8 @@ export const getProductById = async (req, res) => {
       }
     }
 
+=======
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     res.status(200).json(product);
   } catch (error) {
     res.status(500).json({
@@ -161,10 +189,13 @@ export const getProductById = async (req, res) => {
  */
 export const updateProduct = async (req, res) => {
   try {
+<<<<<<< HEAD
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: "Invalid product ID" });
     }
 
+=======
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     const product = await Product.findById(req.params.id);
 
     if (!product) {
@@ -175,9 +206,15 @@ export const updateProduct = async (req, res) => {
 
     product.name = req.body.name ?? product.name;
     product.description = req.body.description ?? product.description;
+<<<<<<< HEAD
     product.price = req.body.price !== undefined ? Number(req.body.price) : product.price;
     product.category = req.body.category ?? product.category;
     product.stock = req.body.stock !== undefined ? Number(req.body.stock) : product.stock;
+=======
+    product.price = req.body.price ?? product.price;
+    product.category = req.body.category ?? product.category;
+    product.stock = req.body.stock ?? product.stock;
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
     const updatedProduct = await product.save();
 
@@ -192,6 +229,7 @@ export const updateProduct = async (req, res) => {
     });
   }
 };
+<<<<<<< HEAD
 
 // Upload product image (Admin)
 export const uploadProductImage = async (req, res) => {
@@ -200,6 +238,11 @@ export const uploadProductImage = async (req, res) => {
       return res.status(400).json({ message: "Invalid product ID" });
     }
 
+=======
+// Upload product image (Admin)
+export const uploadProductImage = async (req, res) => {
+  try {
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     const product = await Product.findById(req.params.id);
 
     if (!product) {
@@ -229,6 +272,10 @@ export const uploadProductImage = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 /**
  * @desc   Delete product (Admin)
  * @route  DELETE /api/products/:id
@@ -236,10 +283,13 @@ export const uploadProductImage = async (req, res) => {
  */
 export const deleteProduct = async (req, res) => {
   try {
+<<<<<<< HEAD
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: "Invalid product ID" });
     }
 
+=======
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     const product = await Product.findById(req.params.id);
 
     if (!product) {
@@ -260,6 +310,7 @@ export const deleteProduct = async (req, res) => {
     });
   }
 };
+<<<<<<< HEAD
 
 /**
  * @desc   Get vendor's own products
@@ -560,3 +611,5 @@ export const updateVendorProductStock = async (req, res) => {
     });
   }
 };
+=======
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d

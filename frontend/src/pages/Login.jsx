@@ -1,36 +1,66 @@
+<<<<<<< HEAD
 import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
+=======
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../api/axios"; // ✅ use common axios instance
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+<<<<<<< HEAD
   const [errorMsg, setErrorMsg] = useState("");
 
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+=======
+
+  const navigate = useNavigate();
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
+<<<<<<< HEAD
       setErrorMsg("Please fill all fields");
+=======
+      alert("Please fill all fields");
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
       return;
     }
 
     try {
       setLoading(true);
+<<<<<<< HEAD
       setErrorMsg("");
 
       const { data } = await API.post("/auth/login", {
+=======
+
+      const { data } = await api.post("/auth/login", {
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
         email,
         password,
       });
 
+<<<<<<< HEAD
       login(data.user, data.token);
 
+=======
+      // ✅ save auth data
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      alert("Login successful 🎉");
+
+      // ✅ role-based redirect
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
       if (data.user.role === "admin") {
         navigate("/admin/add-product");
       } else {
@@ -38,7 +68,11 @@ function Login() {
       }
     } catch (error) {
       console.error(error);
+<<<<<<< HEAD
       setErrorMsg(
+=======
+      alert(
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
         error.response?.data?.message || "Invalid email or password"
       );
     } finally {
@@ -47,6 +81,7 @@ function Login() {
   };
 
   return (
+<<<<<<< HEAD
     <div style={styles.container}>
       <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Login to Cravory</h2>
 
@@ -85,10 +120,37 @@ function Login() {
       <p style={{ textAlign: "center", marginTop: "15px" }}>
         Don't have an account? <Link to="/register">Register here</Link>
       </p>
+=======
+    <div style={{ maxWidth: "400px", margin: "40px auto" }}>
+      <h2>Login</h2>
+
+      <form onSubmit={submitHandler}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{ width: "100%", marginBottom: "10px" }}
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={{ width: "100%", marginBottom: "10px" }}
+        />
+
+        <button type="submit" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
+      </form>
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     </div>
   );
 }
 
+<<<<<<< HEAD
 const styles = {
   container: {
     maxWidth: "400px",
@@ -135,4 +197,6 @@ const styles = {
   },
 };
 
+=======
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 export default Login;

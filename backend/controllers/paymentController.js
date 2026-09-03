@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import getRazorpayInstance from "../config/razorpay.js";
 import crypto from "crypto";
 import Order from "../models/Order.js";
@@ -94,6 +95,32 @@ export const createRazorpayOrder = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Razorpay order creation failed",
+=======
+import razorpay from "../config/razorpay.js";
+import crypto from "crypto";
+import Order from "../models/Order.js";
+
+export const createRazorpayOrder = async (req, res) => {
+  try {
+    const { amount } = req.body;
+
+    if (!amount) {
+      return res.status(400).json({ message: "Amount is required" });
+    }
+
+    const options = {
+      amount: amount * 100, // ₹ → paise
+      currency: "INR",
+      receipt: `receipt_${Date.now()}`,
+    };
+
+    const razorpayOrder = await razorpay.orders.create(options);
+
+    res.status(200).json({ razorpayOrder });
+  } catch (error) {
+    res.status(503).json({
+      message: "Razorpay service unavailable",
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
       error: error.message,
     });
   }
@@ -106,6 +133,7 @@ export const verifyPayment = async (req, res) => {
       razorpay_payment_id,
       razorpay_signature,
       orderId,
+<<<<<<< HEAD
       mongo_order_id,
     } = req.body;
 
@@ -116,10 +144,27 @@ export const verifyPayment = async (req, res) => {
     }
 
     const order = await Order.findById(targetOrderId);
+=======
+    } = req.body;
+
+    const body = razorpay_order_id + "|" + razorpay_payment_id;
+
+    const expectedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(body)
+      .digest("hex");
+
+    if (expectedSignature !== razorpay_signature) {
+      return res.status(400).json({ message: "Payment verification failed" });
+    }
+
+    const order = await Order.findById(orderId);
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
 
+<<<<<<< HEAD
     // Security Check 1: User ownership validation
     if (order.user.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: "Forbidden: You are not authorized to verify payment for this order" });
@@ -154,17 +199,26 @@ export const verifyPayment = async (req, res) => {
       }
     }
 
+=======
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     order.isPaid = true;
     order.paidAt = Date.now();
     order.paymentMethod = "Razorpay";
     order.paymentResult = {
+<<<<<<< HEAD
       razorpay_order_id: razorpay_order_id || order.razorpayOrderId || `order_sim_${Date.now()}`,
       razorpay_payment_id: razorpay_payment_id || `pay_sim_${Date.now()}`,
       razorpay_signature: razorpay_signature || "simulated_sig",
+=======
+      razorpay_order_id,
+      razorpay_payment_id,
+      razorpay_signature,
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     };
 
     await order.save();
 
+<<<<<<< HEAD
     // Deduct stock for products (executed exactly once upon payment success)
     for (const item of order.orderItems) {
       if (item.product) {
@@ -180,6 +234,10 @@ export const verifyPayment = async (req, res) => {
     res.status(200).json({
       message: "Payment successful",
       alreadyPaid: false,
+=======
+    res.status(200).json({
+      message: "Payment successful",
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
       order,
     });
   } catch (error) {
@@ -189,6 +247,7 @@ export const verifyPayment = async (req, res) => {
     });
   }
 };
+<<<<<<< HEAD
 
 /**
  * @desc   Handle payment cancellation/failure gracefully
@@ -298,3 +357,5 @@ export const handleRazorpayWebhook = async (req, res) => {
     res.status(500).json({ message: "Webhook processing error", error: error.message });
   }
 };
+=======
+>>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
