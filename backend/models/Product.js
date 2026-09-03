@@ -24,19 +24,14 @@ const productSchema = new mongoose.Schema(
     },
     images: [
       {
-<<<<<<< HEAD
         url: { type: String, required: true },
         public_id: { type: String },
-=======
-        type: String,
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
       },
     ],
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-<<<<<<< HEAD
     vendor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Vendor",
@@ -54,8 +49,6 @@ const productSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
-=======
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
   },
   { timestamps: true }
 );

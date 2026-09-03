@@ -1,6 +1,5 @@
 import Cart from "../models/Cart.js";
 import Product from "../models/Product.js";
-<<<<<<< HEAD
 import mongoose from "mongoose";
 
 /**
@@ -158,20 +157,10 @@ export const addToCart = async (req, res) => {
 
     const product = await Product.findById(productId).populate("vendor");
 
-=======
-
-// Add item to cart
-export const addToCart = async (req, res) => {
-  try {
-    const { productId, quantity } = req.body;
-
-    const product = await Product.findById(productId);
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
 
-<<<<<<< HEAD
     // Check vendor status
     if (product.vendor && typeof product.vendor === "object") {
       if (product.vendor.isApproved === false || product.vendor.isActive === false) {
@@ -197,14 +186,6 @@ export const addToCart = async (req, res) => {
       cart = await Cart.create({
         user: req.user._id,
         items: [{ product: productId, quantity: qtyToAdd }],
-=======
-    let cart = await Cart.findOne({ user: req.user._id });
-
-    if (!cart) {
-      cart = await Cart.create({
-        user: req.user._id,
-        items: [{ product: productId, quantity: quantity || 1 }],
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
       });
     } else {
       const itemIndex = cart.items.findIndex(
@@ -212,7 +193,6 @@ export const addToCart = async (req, res) => {
       );
 
       if (itemIndex > -1) {
-<<<<<<< HEAD
         const newQuantity = cart.items[itemIndex].quantity + qtyToAdd;
         if (newQuantity > product.stock) {
           return res.status(400).json({ message: `Only ${product.stock} items available in stock` });
@@ -223,34 +203,22 @@ export const addToCart = async (req, res) => {
           return res.status(400).json({ message: `Only ${product.stock} items available in stock` });
         }
         cart.items.push({ product: productId, quantity: qtyToAdd });
-=======
-        cart.items[itemIndex].quantity += quantity || 1;
-      } else {
-        cart.items.push({ product: productId, quantity: quantity || 1 });
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
       }
 
       await cart.save();
     }
 
-<<<<<<< HEAD
     const formattedCart = await formatMultiVendorCart(cart);
 
     res.status(200).json({
       message: "Product added to cart",
       cart: formattedCart,
-=======
-    res.status(200).json({
-      message: "Product added to cart",
-      cart,
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-<<<<<<< HEAD
 /**
  * @desc   Get logged-in user's cart
  * @route  GET /api/cart
@@ -338,34 +306,16 @@ export const updateCartQuantity = async (req, res) => {
       message: "Cart updated successfully",
       cart: formattedCart,
     });
-=======
-// Get logged-in user's cart
-export const getCart = async (req, res) => {
-  try {
-    const cart = await Cart.findOne({ user: req.user._id }).populate(
-      "items.product"
-    );
-
-    if (!cart) {
-      return res.status(200).json({ items: [] });
-    }
-
-    res.status(200).json(cart);
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-<<<<<<< HEAD
 /**
  * @desc   Remove item from cart
  * @route  DELETE /api/cart/:productId
  * @access Private
  */
-=======
-// Remove item from cart
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 export const removeFromCart = async (req, res) => {
   try {
     const { productId } = req.params;
@@ -381,7 +331,6 @@ export const removeFromCart = async (req, res) => {
 
     await cart.save();
 
-<<<<<<< HEAD
     const formattedCart = await formatMultiVendorCart(cart);
 
     res.status(200).json({
@@ -415,11 +364,6 @@ export const clearCart = async (req, res) => {
         totalItems: 0,
         warnings: [],
       },
-=======
-    res.status(200).json({
-      message: "Item removed from cart",
-      cart,
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-<<<<<<< HEAD
       enum: ["user", "vendor", "admin"],
       default: "user",
     },
@@ -25,11 +24,6 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
-=======
-      enum: ["user", "admin"],
-      default: "user",
-    },
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
   },
   { timestamps: true }
 );

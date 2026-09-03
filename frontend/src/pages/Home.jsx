@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-<<<<<<< HEAD
 import { Link, useNavigate } from "react-router-dom";
 import { getProducts } from "../api/productApi";
 import { getPublicVendors } from "../api/vendorApi";
@@ -258,30 +257,10 @@ function Home() {
           </div>
         )}
       </section>
-=======
-import { getProducts } from "../api/productApi";
-
-function Home() {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    getProducts()
-      .then((data) => setProducts(data.products || []))
-      .catch((err) => console.error(err));
-  }, []);
-
-  return (
-    <div>
-      <h2>Products</h2>
-      {products.map((p) => (
-        <div key={p._id}>{p.name}</div>
-      ))}
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     </div>
   );
 }
 
-<<<<<<< HEAD
 const styles = {
   pageWrapper: {
     width: "100%",
@@ -557,6 +536,4 @@ const styles = {
   },
 };
 
-=======
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 export default Home;

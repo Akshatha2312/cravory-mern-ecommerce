@@ -16,7 +16,6 @@ const orderSchema = mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "Product",
         },
-<<<<<<< HEAD
         vendor: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Vendor",
@@ -49,15 +48,10 @@ const orderSchema = mongoose.Schema(
       code: String,
       discountAmount: Number,
     },
-=======
-      },
-    ],
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     totalPrice: {
       type: Number,
       required: true,
     },
-<<<<<<< HEAD
     shippingAddress: {
       fullName: String,
       phone: String,
@@ -76,9 +70,6 @@ const orderSchema = mongoose.Schema(
       razorpay_payment_id: String,
       razorpay_signature: String,
     },
-=======
-    paymentMethod: String,
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     isPaid: {
       type: Boolean,
       default: false,

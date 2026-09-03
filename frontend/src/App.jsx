@@ -1,15 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-<<<<<<< HEAD
 import { WishlistProvider } from "./context/WishlistContext";
 
 import Navbar from "./components/Navbar";
 import AdminRoute from "./components/AdminRoute";
 import VendorRoute from "./components/VendorRoute";
-=======
-
-import Navbar from "./components/Navbar";
-import AdminRoute from "./components/AdminRoute";
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
 // Pages
 import Home from "./pages/Home";
@@ -18,7 +12,6 @@ import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import MyOrders from "./pages/MyOrders";
 import OrderSuccess from "./pages/OrderSuccess";
-<<<<<<< HEAD
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminAddProduct from "./pages/AdminAddProduct";
 import AdminOrders from "./pages/AdminOrders";
@@ -41,15 +34,10 @@ import Wishlist from "./pages/Wishlist";
 import Checkout from "./pages/Checkout";
 
 import Footer from "./components/Footer";
-=======
-import AdminAddProduct from "./pages/AdminAddProduct";
-import AdminOrders from "./pages/AdminOrders";
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
 function App() {
   return (
     <BrowserRouter>
-<<<<<<< HEAD
       <WishlistProvider>
         <Navbar />
 
@@ -181,40 +169,6 @@ function App() {
         </Routes>
         <Footer />
       </WishlistProvider>
-=======
-      <Navbar />
-
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/cart" element={<Cart />} />
-
-        {/* User Routes */}
-        <Route path="/my-orders" element={<MyOrders />} />
-        <Route path="/order-success" element={<OrderSuccess />} />
-
-        {/* Admin Routes */}
-        <Route
-          path="/admin/add-product"
-          element={
-            <AdminRoute>
-              <AdminAddProduct />
-            </AdminRoute>
-          }
-        />
-
-        <Route
-          path="/admin/orders"
-          element={
-            <AdminRoute>
-              <AdminOrders />
-            </AdminRoute>
-          }
-        />
-      </Routes>
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     </BrowserRouter>
   );
 }

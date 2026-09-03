@@ -19,17 +19,11 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.1.1",
     "multer": "^2.0.2",
-<<<<<<< HEAD
     "multer-storage-cloudinary": "^4.0.0",
     "razorpay": "^2.9.6"
   },
   "devDependencies": {
     "mongodb-memory-server": "^11.2.0",
-=======
-    "razorpay": "^2.9.6"
-  },
-  "devDependencies": {
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     "nodemon": "^3.1.11"
   }
 }

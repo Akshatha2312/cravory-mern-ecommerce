@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import API from "./axios";
 
 export const createOrder = async (orderData) => {
@@ -44,11 +43,5 @@ export const getVendorOrderById = async (id) => {
 
 export const updateVendorOrderStatus = async (id, status, itemId = null) => {
   const { data } = await API.patch(`/orders/vendor/${id}/status`, { status, itemId });
-=======
-import axios from "./axios";
-
-export const getMyOrders = async () => {
-  const { data } = await axios.get("/orders/my-orders");
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
   return data;
 };

@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-<<<<<<< HEAD
 import { useNavigate, useLocation, Link } from "react-router-dom";
 
 function OrderSuccess() {
@@ -7,27 +6,16 @@ function OrderSuccess() {
   const location = useLocation();
 
   const orderId = location.state?.orderId;
-=======
-import { useNavigate } from "react-router-dom";
-
-function OrderSuccess() {
-  const navigate = useNavigate();
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/my-orders");
-<<<<<<< HEAD
     }, 5000);
-=======
-    }, 3000);
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
     return () => clearTimeout(timer);
   }, [navigate]);
 
   return (
-<<<<<<< HEAD
     <div className="cravory-container" style={{ paddingTop: "40px", paddingBottom: "60px" }}>
       <div className="cravory-empty-state" style={{ maxWidth: "600px", margin: "0 auto", padding: "44px 32px" }}>
         <div style={{ fontSize: "3.5rem", marginBottom: "16px" }}>🎉</div>
@@ -63,12 +51,6 @@ function OrderSuccess() {
           </Link>
         </div>
       </div>
-=======
-    <div style={{ padding: "40px", textAlign: "center" }}>
-      <h1>🎉 Payment Successful!</h1>
-      <p>Your order has been placed successfully.</p>
-      <p>Redirecting to My Orders...</p>
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
     </div>
   );
 }

@@ -6,7 +6,6 @@ import {
   updateProduct,
   deleteProduct,
   uploadProductImage,
-<<<<<<< HEAD
   getVendorProducts,
   createVendorProduct,
   updateVendorProduct,
@@ -15,21 +14,15 @@ import {
   uploadVendorProductImage,
   updateVendorProductStock,
   getVendorPublicProducts,
-=======
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 } from "../controllers/productController.js";
 
 import { protect } from "../middleware/authMiddleware.js";
 import adminOnly from "../middleware/adminMiddleware.js";
-<<<<<<< HEAD
 import { requireVendor } from "../middleware/vendorMiddleware.js";
-=======
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 import upload from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
 
-<<<<<<< HEAD
 // Public Product Routes
 router.get("/", getAllProducts);
 router.get("/public/vendor/:vendorId", getVendorPublicProducts);
@@ -57,24 +50,5 @@ router.post("/:id/upload", protect, adminOnly, upload.single("image"), uploadPro
 
 // Public Single Product Route (MUST be declared LAST among GETs)
 router.get("/:id", getProductById);
-=======
-// Public
-router.get("/", getAllProducts);
-router.get("/:id", getProductById);
-
-// Admin
-router.post("/add-product", protect, adminOnly, addProduct);
-router.put("/:id", protect, adminOnly, updateProduct);
-router.delete("/:id", protect, adminOnly, deleteProduct);
-
-// Image upload
-router.post(
-  "/:id/upload",
-  protect,
-  adminOnly,
-  upload.single("image"),
-  uploadProductImage
-);
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
 
 export default router;

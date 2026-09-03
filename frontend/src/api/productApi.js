@@ -1,7 +1,6 @@
 import API from "./axios";
 
 export const getProducts = async () => {
-<<<<<<< HEAD
   const { data } = await API.get("/products");
   return data;
 };
@@ -35,8 +34,5 @@ export const uploadProductImage = async (id, formData) => {
   const { data } = await API.post(`/products/${id}/upload`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
-=======
-  const { data } = await API.get("/api/products");
->>>>>>> f34295960f993f444ddcf4ba140c8f4aa114671d
   return data;
 };
